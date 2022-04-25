@@ -7,7 +7,7 @@
   * {
     scrollbar-width: auto;
     scrollbar-color: #445597 #292929;
-    overflow-x: hidden;
+    
   }
 
   *::-webkit-scrollbar {
