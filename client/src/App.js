@@ -22,7 +22,7 @@ import SuccessfulPurchase from "./components/pages/SuccessfulPurchase";
 // Routes
 // import Home from "./components/Home.jsx";
 
-import Admin from "./components/Admin.jsx";
+// import Admin from "./components/Admin.jsx";
 import MovieDetail from "./components/MovieDetail.jsx";
 import NotFound from "./components/NotFound.jsx";
 import LandingPage from "./components/pages/LandingPage";
