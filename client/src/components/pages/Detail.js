@@ -72,7 +72,7 @@ const Detail = () => {
 
   const handlertoBuy=() => {
     if(userState == true) {
-      navigate("/selectickets")
+      navigate("/selecttickets")
     }else{
       Swal.fire({
         title: "Es necesario Iniciar sesion",
