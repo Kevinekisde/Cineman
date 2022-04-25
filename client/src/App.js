@@ -61,7 +61,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route
+      {/* <Route
         path="/admin"
         element={
           userInfo.uid === "iBTnFMon69gCYZkidwg0TFV58gy1" ? (
@@ -70,7 +70,7 @@ function App() {
             <Admin />
           )
         }
-      />
+      /> */}
       <Route path="/home" element={<HomeStyled />} />
       {/* <Route path="/home" element={<Home />} /> */}
       <Route path="/detail/:id" element={<Detail />} />
