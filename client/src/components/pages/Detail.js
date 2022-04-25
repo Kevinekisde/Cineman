@@ -12,7 +12,7 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import ContentLoader from "react-content-loader";
 import "animate.css";
-
+import Swal from "sweetalert2";
 import Header from "../sections/Header";
 import {
   Button,
@@ -33,6 +33,7 @@ const Detail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const allFunctions = useSelector((state) => state.functions);
+  const userState = useSelector((state) => state.login)
   const myPeli = useSelector((state) => state.movieDetail);
 
   const selectStyle = (el) => {
@@ -68,6 +69,26 @@ const Detail = () => {
     };
   }, [dispatch]);
 
+
+  const handlertoBuy=() => {
+    if(userState == true) {
+      navigate("/selectickets")
+    }else{
+      Swal.fire({
+        title: "Es necesario Iniciar sesion",
+        text: "Debes tener una cuenta para comprar",
+        icon: "error",
+        showCloseButton: true,
+        confirmButtonText: "Loguearse",
+      }).then((result) => {
+        if(result.isConfirmed){
+          navigate("/register1")
+        }
+      })
+    }
+
+  }
+
   const [showFunctions, setShowFunctions] = useState(false);
 
   let FunctionsFilteredByMovie = allFunctions.filter(
@@ -95,7 +116,7 @@ const Detail = () => {
                     <p>{myPeli[0]?.review}</p>
                   </MovieInfo>
                   <div>
-                    <Button onClick={() => navigate("/selecttickets")}>
+                    <Button onClick={handlertoBuy}>
                       Buy Now
                     </Button>
                     <a href={myPeli[0]?.officialSite} target="blank">
