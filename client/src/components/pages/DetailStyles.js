@@ -5,6 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   height: 99.99vh;
+  overflow-x: hidden;
 `;
 
 export const Content = styled.main`
