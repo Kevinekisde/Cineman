@@ -1,0 +1,376 @@
+import axios from "axios";
+import {
+  GET_MOVIES,
+  GET_MOVIE_DETAIL,
+  ADD_TO_CART,
+  REMOVE_ALL_FROM_CART,
+  REMOVE_ONE_FROM_CART,
+  CLEAR_CART,
+  LOGIN,
+  LOGOUT,
+  CLEAR_DETAIL,
+  GET_MOVIE_NAME,
+  ADD_MOVIE,
+  CREATE_ROOMS,
+  SET_SALAS,
+  GET_CATEGORYS,
+  FILTER_CATEGORY,
+  GET_NEXT_MOVIES,
+  FILTER_NEXT_MOVIES,
+  CLEAR_CHECKOUT,
+  FILL_CHECKOUT,
+  FILL_LOCAL_CART,
+  GET_SALA,
+  GET_ROOMS,
+  ADD_FUNCTION,
+  PUT_ROOM,
+  GET_FUNCTIONS,
+  SET_FUNCTION,
+  GET_USER,
+  POST_COMMENT,
+  EDIT_USER,
+  TICKET_HANDLER,
+  SET_SEATS,
+  GET_FUNCTION,
+  SELECTED_TICKET,
+  FILL_LOCAL_TICKETS,
+  GET_PRODUCT,
+  FILLED_SEATS,
+} from "./constants.js";
+import { auth, google } from "../firebase";
+
+export function getMovies() {
+  return async function (dispatch) {
+    try {
+      let request = await axios.get("http://localhost:3001/peliculas");
+      return dispatch({ type: GET_MOVIES, payload: request.data });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+}
+
+export function getMoviesById(id) {
+  return async function (dispatch) {
+    try {
+      let request = await axios.get(`http://localhost:3001/peliculas/${id}`);
+      return dispatch({ type: GET_MOVIE_DETAIL, payload: request.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+export function getCategories() {
+  return async function (dispatch) {
+    try {
+      let request = await axios.get("http://localhost:3001/categorias");
+      return dispatch({ type: GET_CATEGORYS, payload: request.data });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+}
+
+export function filterByCategories(payload) {
+  return {
+    type: FILTER_CATEGORY,
+    payload,
+  };
+}
+export function filterNextMovies(payload) {
+  return {
+    type: FILTER_NEXT_MOVIES,
+    payload,
+  };
+}
+
+export function AddtoCart(id) {
+  return async function (dispatch) {
+    try {
+      return dispatch({ type: ADD_TO_CART, payload: id });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function getMovieByName(name) {
+  return async function (dispatch) {
+    try {
+      let request = await axios.get(
+        `http://localhost:3001/peliculas?name=${name}`
+      );
+      return dispatch({
+        type: GET_MOVIE_NAME,
+        payload: request.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function getProducts() {
+  return async function (dispatch) {
+    try {
+      let request = await axios.get(`http://localhost:3001/products/i`);
+      return dispatch({
+        type: GET_PRODUCT,
+        payload: request.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function RemoveOneFromCart(id) {
+  return async function (dispatch) {
+    try {
+      return dispatch({ type: REMOVE_ONE_FROM_CART, payload: id });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+export function RemoveAllFromCart(id) {
+  return async function (dispatch) {
+    try {
+      return dispatch({ type: REMOVE_ALL_FROM_CART, payload: id });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+export function ClearCart() {
+  return async function (dispatch) {
+    try {
+      return dispatch({ type: CLEAR_CART });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export function clearDetail(dispatch) {
+  return dispatch({ type: CLEAR_DETAIL });
+}
+
+export const login = (dispatch) => {
+  auth
+    .signInWithPopup(google)
+    .then((result) => {
+      localStorage.setItem("user", JSON.stringify(result.user));
+      return dispatch({
+        type: LOGIN,
+        payload: result.user,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const logout = (dispatch) => {
+  auth
+    .signOut()
+    .then(() => {
+      localStorage.clear();
+      return dispatch({
+        type: LOGOUT,
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export function addMovie(payload) {
+  return async (dispatch) => {
+    try {
+      const post = await axios.post("http://localhost:3001/admin/add", payload);
+      return post;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+}
+// esto crea una función con la movie y sala especificados
+export function addFunction(payload) {
+  return async (dispatch) => {
+    try {
+      await axios.post("http://localhost:3001/admin/addF", payload);
+      return dispatch({ type: ADD_FUNCTION, payload });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+}
+
+//esto trae todas las funciones en db....
+export function getFunctions() {
+  return async function (dispatch) {
+    try {
+      let request = await axios.get("http://localhost:3001/functions");
+      return dispatch({ type: GET_FUNCTIONS, payload: request.data });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+}
+// esto crea una sala con el layout especificado..
+export function createRoom(payload) {
+  return async (dispatch) => {
+    try {
+      await axios.post("http://localhost:3001/admin/create", payload);
+      return dispatch({ type: CREATE_ROOMS, payload });
+    } catch (error) {
+      console.log("algoo");
+    }
+  };
+}
+//esto devuelve una sala de la db por su id...
+export const getSala = (id) => {
+  return async (dispatch) => {
+    try {
+      const room = await axios.get(`http://localhost:3001/admin/rooms/${id}`);
+      return dispatch({ type: GET_SALA, payload: room.data });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+// estp hace lo mismo que la de arriba :v son lo mismo -------------------
+export function getRooms() {
+  return async function (dispatch) {
+    try {
+      let request = await axios.get("http://localhost:3001/admin/rooms");
+      return dispatch({ type: GET_ROOMS, payload: request.data });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+}
+// -----------------------------------
+//pasa las salas al estado.....
+export const setSalas = (sala) => {
+  return function (dispatch) {
+    return dispatch({ type: SET_SALAS, payload: sala });
+  };
+};
+//pasa la funcion al estado.....
+export const setFunction = (payload) => {
+  return function (dispatch) {
+    return dispatch({ type: SET_FUNCTION, payload });
+  };
+};
+
+//esto modifica los asiendos ocupados en una funcion
+export const setSeats = (id, data) => {
+  return async function (dispatch) {
+    await axios.put(`http://localhost:3001/functions?id=${id}`, data);
+    return dispatch({
+      type: SET_SEATS,
+    });
+  };
+};
+// eso hace lo mismo pero a la sala... (para modificar salas)
+export const putRoom = (sala, id) => {
+  return async function (dispatch) {
+    try {
+      await axios.put(`http://localhost:3001/admin/rooms/${id}`, sala);
+      return dispatch({ type: PUT_ROOM, payload: sala });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+export const checkOut = (cart) => {
+  return function (dispatch) {
+    return dispatch({ type: FILL_CHECKOUT, payload: cart });
+  };
+};
+
+export const checkOutClear = () => {
+  return function (dispatch) {
+    return dispatch({ type: CLEAR_CHECKOUT });
+  };
+};
+
+export const localStorageCart = (payload) => {
+  return function (dispatch) {
+    return dispatch({ type: FILL_LOCAL_CART, payload });
+  };
+};
+
+export const localStorageTickets = (payload) => {
+  return function (dispatch) {
+    return dispatch({ type: FILL_LOCAL_TICKETS, payload });
+  };
+};
+
+export const createUser = (payload) => {
+  return async function (dispatch) {
+    const json = await axios.post(
+      "http://localhost:3001/user/createuser",
+      payload
+    );
+    return json;
+  };
+};
+
+export const getUserInfo = (id) => {
+  return async function (dispatch) {
+    try {
+      let request = await axios.get(`http://localhost:3001/user/${id}`);
+      return dispatch({ type: GET_USER, payload: request.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const postComment = (payload) => {
+  return async function (dispatch) {
+    try {
+      await axios.post(`http://localhost:3001/user/comments`, payload);
+
+      return dispatch({ type: POST_COMMENT, payload });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const editUser = (id, data) => {
+  return async function (dispatch) {
+    await axios.put(`http://localhost:3001/user/${id}`, data);
+    return dispatch({
+      type: EDIT_USER,
+    });
+  };
+};
+export const ticketHandler = (total_price) => {
+  return async function (dispatch) {
+    return dispatch({ type: TICKET_HANDLER, payload: total_price });
+  };
+};
+
+export const getFunction = (id) => {
+  return async function (dispatch) {
+    let funcion = await axios.get(`http://localhost:3001/functions/${id}`);
+    return dispatch({ type: GET_FUNCTION, payload: funcion.data });
+  };
+};
+
+export const setPurchaseTickets = (tickets) => {
+  return function (dispatch) {
+    return dispatch({ type: SELECTED_TICKET, payload: tickets });
+  };
+};
+export const fillSeats = (contadorasientos) => {
+  return function (dispatch) {
+    return dispatch({ type: FILLED_SEATS, payload: contadorasientos });
+  };
+};

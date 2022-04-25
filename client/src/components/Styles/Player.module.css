@@ -1,0 +1,38 @@
+.root {
+  position: fixed;
+  z-index: -2;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: black;
+  margin-bottom: 40px;
+  transform: scale(1.5);
+  filter: brightness(0.5)
+}
+
+.player {
+  height: 100vh;
+  width: 100vw;
+  object-fit: cover;
+}
+
+.player > div {
+  min-height: 100vh;
+  min-width: 100vw;
+  object-fit: cover;
+}
+
+.player > video {
+  min-height: 100vh;
+  min-width: 100vw;
+  object-fit: cover;
+}
+
+.player > iframe {
+  min-height: 100vh;
+  min-width: 100vw;
+  object-fit: cover;
+}

@@ -1,0 +1,178 @@
+{
+    "Peliculas":[
+        {
+            "id":1,
+            "image":"https://sm.ign.com/ign_es/movie/d/doctor-str/doctor-strange-in-the-multiverse-of-madness_4pjr.jpg",
+            "name":"Doctor strange in the multiverse of madness",
+            "date":"jueves, 5 de mayo de 2022",
+            "review":"En DOCTOR STRANGE EN EL MULTIVERSO DE LA LOCURA de Marvel Studios, el Universo Cinematográfico de Marvel (MCU por sus siglas en inglés) se adentra en el Multiverso y amplía sus límites más que nunca. El film presenta un viaje a lo desconocido con Doctor Strange, quien, con la ayuda de aliados místicos nuevos y otros ya conocidos por la audiencia, atraviesa las alucinantes y peligrosas realidades alternativas del Multiverso para enfrentarse a un nuevo y misterioso adversario.",
+            "rating":"4/5⭐",
+            "category":["Acción","Aventura", "Ciencia ficción"],
+            "functions":["07/05","08/05","09/05","10/05","11/05","12/05"]
+            
+        },
+        {
+            "id":2,
+            "image":"https://assets-prd.ignimgs.com/2022/01/25/jujutsu-kaisen0-button-1643127579735.jpg",
+            "name":"Jujutsu Kaisen 0",
+            "date":"jueves, 24 de marzo de 2022",
+            "review":"Cuando eran niños, Rika Orimoto murió en un accidente automovilístico frente a su mejor amigo, Yuta Okkotsu. “Es una promesa. Cuando seamos grandes, nos casaremos”. Rika se convirtió en fantasma y Yuta llegó a desear su propia muerte tras sufrir bajo su maldición, cuando el gran mago Satoru Gojo le da la bienvenida a la Academia de Hechicería. Allí Yuta conoce a sus compañeros: Maki Zen’in, Toge Inumaki y Panda, y por fin encuentra el valor que le faltaba. “¡Quiero tener la confianza para decir que no está mal que siga vivo!”. “Mientras esté en la Academia de Hechicería terminaré con la maldición de Rika-chan”. Mientras tanto, el malvado brujo Suguru Geto, quien fue expulsado de la Academia por asesinar a inocentes, aparece ante Yuta y sus amigos. “El próximo 24 de diciembre celebraremos el Desfile Nocturno de los Cien Demonios”. Mientras Geto apoya la creación de un paraíso exclusivo para hechiceros, este desata mil maldiciones en Shinjuku y Kyoto para exterminar a todos los que no sean brujos. ¿Podrá Yuta detener a Geto? ¿Podrá acabar con la maldición de Rika?",
+            "rating":"3/5⭐",
+            "category":["Comedia","Acción","Aventura"],
+            "functions":["07/05","08/05","09/05"]
+        },
+        {
+            "id":3,
+            "image":"https://es.web.img3.acsta.net/pictures/22/02/18/10/20/5195258.jpg",
+            "name":"Sonic, la pelicula 2",
+            "date":"Jueves, 7 de abril de 2022",
+            "review":"Después de establecerse en Green Hills, Sonic está listo para tener más libertad, y Tom y Maddie acuerdan dejarlo en casa mientras se van de vacaciones. Pero, apenas se van, cuando el Dr. Robotnik regresa, esta vez con un nuevo compañero, Knuckles, en busca de una esmeralda que tiene el poder de construir y destruir civilizaciones. Sonic se une a su propio compañero, Tails, y juntos se embarcan en un viaje para encontrar la esmeralda antes de que caiga en las manos equivocadas.",
+            "rating":"2/5⭐",
+            "category":["Aventuras","Fantasía"],
+            "functions":["07/05","08/05","09/05"]     
+        },
+        {
+            "id":4,
+            "image":"https://pics.filmaffinity.com/star_wars_the_rise_of_skywalker-619389738-large.jpg",
+            "name":"Star Wars: Episodio IX - El despertar de la fuerza",
+            "date":"Jueves, 7 de abril de 2022",
+            "review":"Un año después de los eventos de 'Los últimos Jedi', los restos de la Resistencia se enfrentarán una vez más a la Primera Orden, involucrando conflictos del pasado y del presente. Mientras tanto, el antiguo conflicto entre los Jedi y los Sith llegará a su clímax, lo que llevará a la saga de los Skywalker a un final definitivo. Final de la trilogía iniciada con El despertar de la Fuerza",
+            "rating":"1/5⭐",
+            "category":["Aventura","Fantasía"],
+            "functions":["07/05","08/05","09/05"]
+        },
+        {
+            "id":5,
+            "image":"https://es.web.img3.acsta.net/pictures/22/02/10/13/16/1386612.jpg",
+            "name":"Morbius",
+            "date":"Jueves, 31 de marzo de 2022",
+            "review":"Uno de los personajes más atractivos y complejos de Marvel llegará a la pantalla grande cuando el ganador del Oscar® Jared Leto se transforme en el enigmático antihéroe Michael Morbius. Peligrosamente enfermo con un raro trastorno sanguíneo y decidido a salvar a otros que sufren su mismo destino, el Dr. Morbius intenta una apuesta desesperada. Lo que al principio parece ser un éxito radical pronto se revela como un remedio potencialmente peor que la enfermedad.",
+            "rating":"1/5⭐",
+            "category":["Terror", "Suspenso","Aventura"],
+            "functions":["07/05","08/05","09/05"]
+
+
+
+        },
+
+        {
+            "id":6,
+            "image":"https://www.cinemacenter.com.ar/img_movies/2459_img2.jpg",
+            "name":"ANIMALES FANTÁSTICOS: LOS SECRETOS DE DUMBLEDORE",
+            "date":"Jueves, 31 de marzo de 2022",
+            "review":"“Animales Fantásticos: Los secretos de Dumbledore”, de Warner Bros. Pictures, es la aventura más reciente del mundo mágico (Wizarding World™) creado por J. K. Rowling. El profesor Albus Dumbledore (Jude Law) sabe que el poderoso mago oscuro Gellert Grindelwald (Mads Mikkelsen) entró en acción para apoderarse del mundo mágico. Dado que no puede detenerlo solo, le pide al magizoólogo Newt Scamander (Eddie Redmayne) que lidere un grupo intrépido de magos, brujas y un valiente panadero muggle hacia una peligrosa misión, en la que encontrarán animales nuevos y conocidos y se enfrentarán a la creciente legión de simpatizantes de Grindelwald. Pero si hay tanto en juego, ¿cuánto tiempo podrá mantenerse al margen Dumbledore?.",
+            "rating":"3/5⭐",
+            "duration":"142 Min",
+            "category":["Fantasía","Aventura"],
+            "functions":["08/05","18/05","05/05"]
+
+        },
+        {
+            "id":7,
+            "image":"https://img.ecartelera.com/noticias/fotos/62200/62242/1.jpg",
+            "name":"The Batman",
+            "date":"Jueves, 3 de marzo de 2022",
+            "review":"No es solo una señal…es una advertencia. En su segundo año luchando contra el crimen, Batman descubre la corrupción en Ciudad Gótica que se conecta con su propia familia, mientras se enfrenta a un asesino en serie conocido como Riddler.",
+            "rating":"5/5⭐",
+            "duration":"176",
+            "category":["Suspenso","Acción"]
+
+        }
+       
+    ],
+    "Proximas Peliculas":[
+        {
+            "id":7,
+            "image":"https://assets.teenvogue.com/photos/619bab09bd5d0bb3c8bd58b4/3:4/w_1161,h_1548,c_limit/211027_SVT%20Concert%20Poster%20Asset.png",
+            "name":"SEVENTEEN POWER OF LOVE: THE MOVIE",
+            "date":"miércoles, 20 de abril de 2022",
+            "review":"SEVENTEEN, el artista global que está reescribiendo la historia del K-pop, ¡presenta su primera película! Con cinco álbumes de platino en Corea, dos semanas consecutivas en el Billboard 200 de EE. UU. y en el primer puesto de la lista Oricon de Japón, la banda sigue liderando las listas musicales en todo el mundo. ¡No te pierdas las espectaculares actuaciones, las exclusivas entrevistas con sus 13 miembros y sus reflexiones sobre el pasado, el presente y el futuro que crearán junto a CARAT! ¡La carta de amor de SEVENTEEN traducida como película plasma todo el amor del mundo por CARAT!",
+            "duration":"142 Min",
+            "category":["Drama Musical","Documental"]
+        }
+        
+    ],
+    
+    "Salas":[
+        {
+            "id": "1",
+            "pelicula":"id",
+            "functions":[{
+                "id": 1,
+                "time":"15:35hs",
+                "asientos":[
+                    {"id": 1, "ocupado": false, "posicion":"b1"},
+                    {"id": 2, "ocupado": true, "posicion":"b3"},
+                    {"id": 3, "ocupado": true, "posicion":"d4"}]
+            },
+            {
+                "id": 2,
+                "time":"18:10hs",
+                "asientos":[
+                    {"id": 1, "ocupado": true, "posicion":"g4"},
+                    {"id": 2, "ocupado": false, "posicion":"j3"},
+                    {"id": 3, "ocupado": true, "posicion":"d3"}]
+            }]
+        },
+        {
+            "id": "2",
+            "pelicula":"id",
+            "functions":[{
+                "id": 1,
+                "time":"10:00hs",
+                "asientos":[
+                    {"id": 1, "ocupado": true, "posicion":"j1"},
+                    {"id": 2, "ocupado": true, "posicion":"r3"},
+                    {"id": 3, "ocupado": true, "posicion":"d4"}]
+            },
+            {
+                "id": 2,
+                "time":"13:10hs",
+                "asientos":[
+                    {"id": 1, "ocupado": false, "posicion":"h3"},
+                    {"id": 2, "ocupado": false, "posicion":"p4"},
+                    {"id": 3, "ocupado": true, "posicion":"k1"}]
+            }]
+        }
+    ],
+
+    "Usuarios": [
+        {
+            "id": 1,
+            "token":"",
+            "historial": [{
+                "id": 1,
+                "funcion": "id",
+                "asiento":["j1", "r3"]
+                },
+            {
+                "id": 2,
+                "funcion": {
+                "id": 1,
+                "time": "15:35hs"
+                },
+                "asiento":[""]
+            }]
+        },
+        {
+            "id": 2,
+            "token":"",
+            "historial": [{
+                "id": 1,
+                "funcion": {
+                    "id": 2,
+                    "time": "19:10hs"
+                },
+                "asiento":""
+            },
+            {
+                "id": 2,
+                "funcion": {
+                    "id": 1,
+                    "time": "1:35hs"
+                },
+                "asiento":""
+            }] 
+        }
+    ]
+}

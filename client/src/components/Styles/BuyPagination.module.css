@@ -1,0 +1,26 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.titles,
+.content,
+.buttons {
+  display: flex;
+  gap: 5px;
+  justify-content: space-around;
+  width: 50vw;
+  margin: 4rem;
+}
+
+.content > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 25%;
+  background-color: blue;
+  color: red;
+}

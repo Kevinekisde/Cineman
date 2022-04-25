@@ -1,0 +1,31 @@
+.asientos{
+    display: grid;
+    grid-template-columns: repeat(24, 25px);
+}
+
+.block img{
+    width: 20px;
+}
+
+.block{
+    background-color: aqua;
+    border: 1px black solid;
+}
+
+.columnas{
+    display: grid;
+    grid-template-columns: repeat(24, 25px);
+    
+}
+
+.columnas button{
+    max-width: 20px;
+}
+
+.butacan{
+    display: none;
+}
+
+.imgnoseat{
+    visibility:hidden;
+}

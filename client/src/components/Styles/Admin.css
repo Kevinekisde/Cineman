@@ -1,0 +1,57 @@
+.admin_title {
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: solid;
+  width: 50%;
+  position: relative;
+  left: 25%;
+}
+.menu_button {
+  width: 75%;
+  padding: 5px;
+  font-size: 1.5rem;
+  border: 0;
+  left: 12.5%;
+  position: relative;
+  cursor: pointer;
+}
+
+.menu_button:hover {
+  background-color: aliceblue;
+}
+
+.main_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  left: 25%;
+  position: relative;
+  margin-top: 100px;
+}
+
+.input_container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  position: relative;
+  left: 20%;
+}
+
+.danger {
+  color: red;
+}
+
+.admin_butacas {
+  position: relative;
+  left: 12%;
+  padding-top: 10px;
+}
+
+.form_button{
+  position: relative;
+    left: 43%;
+    width: 10%;
+    font-size: 1rem;
+    margin: 10px;
+}

@@ -1,0 +1,28 @@
+.sillas {
+  display: grid;
+  grid-template-columns: repeat(24, 40px);
+  justify-content: center;
+  position: relative;
+  top: 5%;
+  background: #80808026;
+  padding: 5%;
+  border-radius: 15px;
+}
+
+.imgnoseat {
+  display: none;
+  width: 40px;
+}
+
+.imgseat {
+  width: 40px;
+  cursor: pointer;
+}
+
+.blocksell {
+  background-color: gray;
+}
+
+.blockselect {
+  background-color: chartreuse;
+}
