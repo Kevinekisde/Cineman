@@ -33,7 +33,7 @@ export default function Botonmp({ orderData }) {
     }
 
     axios
-      .post(`https://cineman1.herokuapp/mercadopago/create_preference`, [
+      .post(`https://cineman1.herokuapp.com/mercadopago/create_preference`, [
         orderData,
         user,
       ])
