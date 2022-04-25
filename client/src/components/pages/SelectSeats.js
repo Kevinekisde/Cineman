@@ -36,7 +36,7 @@ const SelectSeats = () => {
 
   // -----------------------------------------------------------------------------------------------------------
   const currentFunction = useSelector((state) => state.functions); //hardcodeada pa traer todas las funciones |
-  const idFunction = "6260e8c6497a55945e4faafc";
+  const idFunction = "6266bde20952646570cdbde5";
   const idRoom = currentFunction[0]?.sala; //id de la sala                                                    |
   // esto se cambia por la funcion que se seleccione en detail---------------------------------------------------
 
