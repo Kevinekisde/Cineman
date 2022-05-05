@@ -61,6 +61,7 @@ export function getMovies() {
 export function getMoviesById(id) {
   return async function (dispatch) {
     try {
+      
       let request = await axios.get(`https://cinemanback.herokuapp.com/peliculas/${id}`);
       return dispatch({ type: GET_MOVIE_DETAIL, payload: request.data });
     } catch (error) {
