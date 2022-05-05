@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   width: 480px;
-  height: 280px;
+  min-height: 280px;
   padding: 40px;
   margin-bottom: 40px;
 
@@ -13,6 +13,7 @@ export const Container = styled.div`
 
   img {
     padding-right: 40px;
+    height: 200px;
   }
 `;
 export const MovieDetail = styled.div`

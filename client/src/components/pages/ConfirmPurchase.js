@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setPurchaseTickets } from "../../redux/actions";
 import ShoppingPoster from "../organisms/ShoppingPoster";
 import ShoppingTotal from "../organisms/ShoppingTotal";
 import Footer from "../sections/Footer";
@@ -27,8 +28,19 @@ const ConfirmPurchase = () => {
   const [pay, setPay] = useState(null);
   const orderData = cart.concat(tickets);
 
+  const funcion = useSelector((state) => state.functionDetail);
+
+  console.log(orderData);
+
   const allCart = cart.map((item) => item.unit_price * item.quantity);
   const allTickets = tickets.map((item) => item.unit_price * item.quantity);
+  useEffect(() => {
+    let localStor = JSON.parse(localStorage.getItem("ticketsLcs"));
+    // console.log(localStor);
+    if (localStor !== null) {
+      dispatch(setPurchaseTickets(localStor));
+    }
+  }, []);
 
   return (
     <Container>
@@ -110,7 +122,7 @@ const ConfirmPurchase = () => {
               />
               {/* <img src="/images/PayPal.png" alt="" /> */}
             </Methods>
-            {pay == "mp" && <Botonmp orderData={orderData} />}
+            {pay == "mp" && <Botonmp funcion={funcion} orderData={orderData} />}
           </ConfirmInfo>
           <div>
             <ShoppingPoster />

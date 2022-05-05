@@ -22,7 +22,7 @@ import SuccessfulPurchase from "./components/pages/SuccessfulPurchase";
 // Routes
 // import Home from "./components/Home.jsx";
 
-// import Admin from "./components/Admin.jsx";
+import Admin from "./components/Admin.jsx";
 import MovieDetail from "./components/MovieDetail.jsx";
 import NotFound from "./components/NotFound.jsx";
 import LandingPage from "./components/pages/LandingPage";
@@ -31,6 +31,7 @@ import ShoppingCart from "./components/ShoppingCart.jsx";
 import Register from "./components/Register";
 import ButacasAdmin from "./components/ButacasAdmin.jsx";
 import ButacasUser from "./components/ButacasUser";
+import EditButacas from "./components/EditButacas";
 import Player from "./components/Player";
 import Paypal from "./components/utils/Paypal";
 import Checkout from "./components/pages/Checkout";
@@ -42,6 +43,9 @@ import BuyPagination from "./components/BuyPagination";
 import Comments from "./components/Comments";
 import TicketingNew from "./components/pages/TicketingNew";
 import Entradas from "./components/Entradas";
+import DeleteRoom from "./components/DeleteRoom";
+import QR from "./components/pages/QR";
+import AdministrationPanel from "./components/pages/AdministrationPanel";
 
 function App() {
   const userInfo = useSelector((state) => state.userInfo);
@@ -61,7 +65,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      {/* <Route
+      <Route
         path="/admin"
         element={
           userInfo.uid === "iBTnFMon69gCYZkidwg0TFV58gy1" ? (
@@ -70,7 +74,8 @@ function App() {
             <Admin />
           )
         }
-      /> */}
+      />
+      <Route path="/administration" element={<AdministrationPanel />} />
       <Route path="/home" element={<HomeStyled />} />
       {/* <Route path="/home" element={<Home />} /> */}
       <Route path="/detail/:id" element={<Detail />} />
@@ -82,12 +87,10 @@ function App() {
       <Route path="/confectionery" element={<Confectionery />} />
       <Route path="/confirmpurchase" element={<ConfirmPurchase />} />
       <Route path="/successfulpurchase/" element={<SuccessfulPurchase />} />
-
       <Route path="/tickets" element={<TicketingNew />} />
-      <Route path="/order/:order" element={<Order />} />
+      <Route path="/order/:order" element={<QR />} />
       <Route path="/createroom" element={<ButacasAdmin />} />
       <Route path="/selectseats" element={<ButacasUser />} />
-
       <Route path="/cart" element={<ShoppingCart></ShoppingCart>}></Route>
       <Route path="/Register" element={<Register />} />
       <Route path="/Register1" element={<Login />} />

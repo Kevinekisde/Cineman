@@ -4,6 +4,8 @@ import Navbar from "./Nav";
 import "./Styles/Admin.css";
 import { validate } from "./utils/FormValidate.js";
 import Butacas from "./ButacasAdmin";
+import EditButacas from "./EditButacas";
+import DeleteRoom from "./DeleteRoom";
 import { addMovie, addFunction, getMovies, getRooms } from "../redux/actions";
 
 export default function Admin() {
@@ -19,12 +21,16 @@ export default function Admin() {
       name: "",
       sinopsis: "",
       image: "",
+      poster: "",
+      trailer: "",
+      officialSite: "",
       date: "",
       rating: "",
       duration: "",
       genres: [],
       cat: "G",
       dub: false,
+      commingsoon: false,
     }, //input de Movie
     { movie: "", sala: "", time: "", date: "" }, //input de Function
   ]);
@@ -71,6 +77,9 @@ export default function Admin() {
     if (
       !errors.name &&
       !errors.sinopsis &&
+      !errors.poster &&
+      !errors.trailer &&
+      !errors.officialSite &&
       !errors.image &&
       !errors.date &&
       !errors.rating &&
@@ -87,12 +96,16 @@ export default function Admin() {
         name: "",
         sinopsis: "",
         image: "",
+        poster: "",
+        trailer: "",
+        officialSite: "",
         date: "",
         rating: "",
         duration: "",
         genres: [],
         cat: "G",
         dub: false,
+        commingsoon: false,
       },
       { movie: "", sala: "", time: "", date: "" },
     ]);
@@ -122,7 +135,7 @@ export default function Admin() {
 
   const movieSubmitButton = () => {
     //prettier-ignore
-    if (  !errors.name && !errors.sinopsis && !errors.image && !errors.date && !errors.rating && !errors.genres && !errors.functions && !errors.duration)
+    if (  !errors.name && !errors.sinopsis && !errors.image && !errors.poster && !errors.date && !errors.rating && !errors.genres && !errors.functions && !errors.duration)
       return (
         <button onClick={handleSubmit} className="form_button">
           Submit
@@ -156,6 +169,16 @@ export default function Admin() {
   const [showRoom, setShowRoom] = useState(true);
   const drawerFunction3 = () => {
     setShowRoom(showRoom !== true);
+  };
+
+  const [editRoom, setEditRoom] = useState(true);
+  const drawerFunction4 = () => {
+    setEditRoom(editRoom !== true);
+  };
+
+  const [deleteRoom, setDeleteRoom] = useState(true);
+  const drawerFunction5 = () => {
+    setDeleteRoom(deleteRoom !== true);
   };
 
   return (
@@ -212,6 +235,54 @@ export default function Admin() {
                   placeholder="image url"
                 />
                 {errors.image && <p className="danger">{errors.image}</p>}
+
+                {/* últimos inputs agregados*/}
+
+                <label className="form_label" htmlFor="poster">
+                  Poster:
+                </label>
+                <input
+                  id="poster"
+                  className={"form_input"}
+                  type="text"
+                  name="poster"
+                  onChange={handleMovieInput}
+                  value={input[0].poster}
+                  placeholder="poster url"
+                />
+                {errors.poster && <p className="danger">{errors.poster}</p>}
+
+                <label className="form_label" htmlFor="trailer">
+                  Trailer:
+                </label>
+                <input
+                  id="trailer"
+                  className={"form_input"}
+                  type="text"
+                  name="trailer"
+                  onChange={handleMovieInput}
+                  value={input[0].trailer}
+                  placeholder="trailer url"
+                />
+                {errors.trailer && <p className="danger">{errors.trailer}</p>}
+
+                <label className="form_label" htmlFor="officialSite">
+                  Official Site:
+                </label>
+                <input
+                  id="officialSite"
+                  className={"form_input"}
+                  type="text"
+                  name="officialSite"
+                  onChange={handleMovieInput}
+                  value={input[0].officialSite}
+                  placeholder="image url"
+                />
+                {errors.officialSite && (
+                  <p className="danger">{errors.officialSite}</p>
+                )}
+
+                {/* últimos inputs agregados*/}
 
                 <label className="form_label" htmlFor="date">
                   Date:
@@ -322,6 +393,28 @@ export default function Admin() {
                     No
                   </option>
                 </select>
+
+                <label className="form_label" htmlFor="comingsoon">
+                  Coming soon:
+                </label>
+                <select
+                  onChange={handleMovieInput}
+                  className="select_form"
+                  defaultValue={"comingsoon"}
+                  name="comingsoon"
+                >
+                  <option value="comingsoon" disabled hidden>
+                    Yes/No
+                  </option>
+                  <option value={true} name="comingsoon">
+                    {" "}
+                    Yes
+                  </option>
+                  <option value={false} name="comingsoon">
+                    {" "}
+                    No
+                  </option>
+                </select>
               </div>
               <div>{movieSubmitButton()}</div>
             </form>
@@ -392,7 +485,7 @@ export default function Admin() {
                 />
                 {errors.time && <p className="danger">{errors.time}</p>}
 
-                <label className="form_label" htmlFor="date">                  
+                <label className="form_label" htmlFor="date">
                   Date:
                 </label>
                 <input
@@ -420,8 +513,28 @@ export default function Admin() {
           {showRoom ? (
             <div></div>
           ) : (
-            <div className="admin_butacas">          
+            <div className="admin_butacas">
               <Butacas />
+            </div>
+          )}
+        </div>
+        <div>
+          <button className="menu_button" onClick={drawerFunction4}>
+            Edit Room
+          </button>
+          {!editRoom && (
+            <div className="admin_butacas">
+              <EditButacas />
+            </div>
+          )}
+        </div>
+        <div>
+          <button className="menu_button" onClick={drawerFunction5}>
+            Delete Room
+          </button>
+          {!deleteRoom && (
+            <div className="admin_butacas">
+              <DeleteRoom />
             </div>
           )}
         </div>

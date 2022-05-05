@@ -79,7 +79,7 @@ export default function Butacas() {
         return {
           id: a.id,
           columna: 0,
-          fila: "",
+          fila: a.fila,
           select: false,
           status: "disponible",
         };
@@ -226,12 +226,12 @@ export default function Butacas() {
             <img
               className={el.select ? `${s.imgseat}` : `${s.imgnoseat}`}
               src={img}
-              alt=""
+              alt="img not found"
             />
           </div>
         ))}
       </div>
-      <div>
+      <div className={s.botones}>
         {botonesFilas.map((boton) => (
           <button
             key={boton.id}

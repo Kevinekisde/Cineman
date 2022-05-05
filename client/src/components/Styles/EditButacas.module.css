@@ -1,0 +1,35 @@
+.buttontop button {
+  margin: 5px;
+  width: 20px;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.sillas {
+  display: grid;
+  grid-template-columns: repeat(24, 25px);
+}
+
+.imgnoseat {
+  visibility: hidden;
+  width: 20px;
+}
+
+.imgseat {
+  width: 20px;
+}
+
+.blocksell {
+  background-color: gray;
+}
+
+.blockselect {
+  background-color: chartreuse;
+}
+
+.columnas button {
+  margin: 2.5px;
+  width: 20px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}

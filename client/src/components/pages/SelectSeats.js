@@ -4,10 +4,11 @@ import { useSelector, useDispatch } from "react-redux";
 
 import {
   setSalas,
-  getSala,
-  getFunction,
   setPurchaseTickets,
   fillSeats,
+  getSala,
+  getFunctions,
+  getFunction,
 } from "../../redux/actions";
 
 import img from "../../img/btc.png";
@@ -33,29 +34,40 @@ const SelectSeats = () => {
   // console.log(ticketscomprados);
   const [compras, setCompras] = useState([]);
   const [output, setOutput] = useState([]);
-
+  // const room = useSelector((state) => state.functionDetail.room);
+  useEffect(() => {
+    let localStor = localStorage.getItem("tickets");
+  }, []);
   // -----------------------------------------------------------------------------------------------------------
-  const currentFunction = useSelector((state) => state.functions); //hardcodeada pa traer todas las funciones |
-  const idFunction = "6266bde20952646570cdbde5";
-  const idRoom = currentFunction[0]?.sala; //id de la sala                                                    |
+  const currentFunction = useSelector((state) => state.functionDetail.funcion); //hardcodeada pa traer todas las funciones |
+  const idFunction = currentFunction?._id;
+  const idRoom = currentFunction?.sala; //id de la sala                                                    |
   // esto se cambia por la funcion que se seleccione en detail---------------------------------------------------
 
-  let comprados = currentFunction[0]?.occupied_seats;
+  let comprados = currentFunction?.occupied_seats; // <<----
   const [contador, setContador] = useState(1);
   const navigate = useNavigate();
   const alltickets = ticketscomprados?.map((el) => el.quantity);
   const elreducido = alltickets.reduce((a, b) => a + b, 0);
 
+  for (let i = 0; i < comprados?.length; i++) {
+    sala.forEach((el) => {
+      if (el.id === comprados[i]) {
+        el.status = "vendido";
+      }
+    });
+  }
+
   function setSeat(id) {
+    // console.log(id);
     if (alltickets.reduce((a, b) => a + b, 0) > contador - 1) {
-      let nuevaSala = sala.map((seat) => {
-        if (seat.id === id) {
+      let nuevaSala = sala?.map((seat) => {
+        if (seat.id === id && seat.columna !== 0) {
           let compra = { id: seat.id, fila: seat.fila, columna: seat.columna };
           setOutput((old) => [...old, seat.id]);
           setContador(contador + 1);
           setCompras((old) => [...old, compra]);
-          if (seat.columna === 0) return seat;
-          else return { ...seat, status: "" };
+          return { ...seat, status: "" };
         } else {
           return seat;
         }
@@ -66,7 +78,7 @@ const SelectSeats = () => {
   }
 
   function unSetSeat(id) {
-    let nuevaSala = sala.map((seat) => {
+    let nuevaSala = sala?.map((seat) => {
       setContador(contador - 1);
       if (seat.id === id) {
         let nuevasCompras = compras.filter((compra) => {
@@ -83,60 +95,32 @@ const SelectSeats = () => {
     dispatch(fillSeats(contador - 2));
   }
 
-  let t0 = ticketscomprados[0]?.quantity;
-  let t1 = ticketscomprados[1]?.quantity;
-  let t2 = ticketscomprados[2]?.quantity;
-
   useEffect(() => {
+    // console.log(idRoom);
     dispatch(getSala(idRoom));
+    let localStor = JSON.parse(localStorage.getItem("ticketstotal"));
+    if (localStor !== null || localStor?.length > 0) {
+      dispatch(setPurchaseTickets(localStor));
+    }
   }, [idRoom]);
 
-  for (let i = 0; i < comprados?.length; i++) {
-    sala.forEach((el) => {
-      if (el.id === comprados[i]) {
-        el.status = "vendido";
-      }
-    });
-  }
-  useEffect(() => {
-    // console.log(output);
-    // console.log(ticketscomprados);
+  // useEffect(() => {
+  //   console.log(localStor);
+  //     setTickets(localStor);
+  //   }
+  // }, []);
 
-    dispatch(getFunction(idFunction));
-  }, [idFunction, output]);
+  // function comprar() {
+  //   //falta despachar esto
 
-  function comprar() {
-    //falta despachar esto
+  //   dispatch(setSeats(idFunction, output));
+  //   dispatch(setPurchaseTickets(ticketscomprados)); //esto va a quedar hasta que se haga la compra
 
-    console.log("PESTAÑASTE");
+  //   // navigate("/cart");
 
-    for (let i = 0; i < output?.length; i++) {
-      if (t0) {
-        ticketscomprados[0].seats.push(output[i]);
-        t0--;
-      } else if (t1 && !t0) {
-        ticketscomprados[1].seats.push(output[i]);
-        t1--;
-      } else if (t2 && !t1) {
-        ticketscomprados[2].seats.push(output[i]);
-        t2--;
-      }
-    }
-    // dispatch(setSeats(idFunction, output));
-    dispatch(setPurchaseTickets(ticketscomprados)); //esto va a quedar hasta que se haga la compra
-
-    navigate("/cart");
-    // let nuevaSala = sala.map((seat) => {
-    //   if (seat.status === "") return { ...seat, status: "vendido" };
-    //   else return seat;
-    // });
-
-    // dispatch(putRoom(nuevaSala, idRoom))
-    // dispatch(setSalas(nuevaSala));
-
-    // dispatch(setSeats([salaId, nuevaSala]))  //esto actualiza los asientos ocupados en la funcion en db
-    setCompras([]);
-  }
+  //   // dispatch(setSeats([salaId, nuevaSala]))  //esto actualiza los asientos ocupados en la funcion en db
+  //   setCompras([]);
+  // }
 
   return (
     <Container>
@@ -192,7 +176,7 @@ const SelectSeats = () => {
 
           <div>
             <ShoppingPoster />
-            <ShoppingTotal comprar={comprar} />
+            <ShoppingTotal output={output} idFunction={idFunction} />
           </div>
         </SeatsContent>
       </Content>

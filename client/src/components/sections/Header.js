@@ -7,6 +7,7 @@ import Hamburger from "hamburger-react";
 
 import { IoPersonCircle, IoExit } from "react-icons/io5";
 import { useEffect } from "react";
+import { FaWindowMinimize } from "react-icons/fa";
 const Header = () => {
   const dispatch = useDispatch();
 
@@ -26,52 +27,38 @@ const Header = () => {
   const [isOpen, setOpen] = useState(false);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "30px",
-      }}
-    >
-      <Container>
-        <Navbar>
-          <Hamburger
-            toggled={isOpen}
-            toggle={setOpen}
-            cursor="none"
-            onToggle={(toggled) => {
-              console.log("Esta abierto");
-            }}
-          />
-          <Title onClick={() => navigate("/home")}>Cineman</Title>
+    <Container>
+      <Navbar>
+        {stateUser.uid !== "iBTnFMon69gCYZkidwg0TFV58gy1" ? (
+          <div style={{ width: "72px" }}> </div>
+        ) : (
+          <Button onClick={() => navigate("/administration")}>Admin</Button>
+        )}
+        <Title onClick={() => window.location.replace("/home")}>Cineman</Title>
 
-          {stateLogin === false ? (
-            <Button onClick={() => navigate("/register1")}>Login</Button>
-          ) : (
-            <div id="userpanel">
-              <img src={user[0]?.image}></img>
-              <div id="displaybutton">
-                <ul>
-                  <li>
-                    <Button onClick={() => navigate("/user/" + id)}>
-                      <IoPersonCircle></IoPersonCircle>Perfil
-                    </Button>
-                  </li>
-                  <li>
-                    <Button onClick={() => dispatch(logout)}>
-                      <IoExit></IoExit>LogOut
-                    </Button>
-                  </li>
-                </ul>
-              </div>
+        {stateLogin === false ? (
+          <Button onClick={() => navigate("/register1")}>Login</Button>
+        ) : (
+          <div id="userpanel">
+            <img src={user[0]?.image} alt=""></img>
+            <div id="displaybutton">
+              <ul>
+                <li>
+                  <Button onClick={() => navigate("/user/" + id)}>
+                    <IoPersonCircle></IoPersonCircle>Perfil
+                  </Button>
+                </li>
+                <li>
+                  <Button onClick={() => dispatch(logout)}>
+                    <IoExit></IoExit>LogOut
+                  </Button>
+                </li>
+              </ul>
             </div>
-          )}
-        </Navbar>
-      </Container>
-      {/* <SearchBar /> */}
-    </div>
+          </div>
+        )}
+      </Navbar>
+    </Container>
   );
 };
 

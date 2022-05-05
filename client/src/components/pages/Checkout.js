@@ -25,7 +25,6 @@ export default function Checkout({ payOption }) {
 
   const [pay, setPay] = useState(null);
   const orderData = cart.concat(tickets);
-  console.log(orderData);
 
   const allCart = cart.map((item) => item.unit_price * item.quantity);
   const allTickets = tickets.map((item) => item.unit_price * item.quantity);

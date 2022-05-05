@@ -16,11 +16,10 @@ import {
   ClearCart,
   setPurchaseTickets,
 } from "../../redux/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const SuccessfulPurchase = () => {
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -5,7 +5,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 480px;
-  height: 350px;
+  min-height: 350px;
   padding: 40px;
   background: #0c0c0c;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
@@ -14,6 +14,8 @@ export const Container = styled.div`
 
 export const TotalInfo = styled.div`
   color: #ffffff;
+  overflow: hidden;
+  overflow-x: scroll;
 
   h2 {
     margin-bottom: 20px;
@@ -42,7 +44,6 @@ export const TotalInfo = styled.div`
 
 export const Details = styled.div`
   display: flex;
-  ${"" /* ${"" /* flex-direction: column; */} */}
   justify-content: space-between;
   border-top: 1px solid #ffffff;
   border-bottom: 1px solid #ffffff;
@@ -61,6 +62,7 @@ export const Details = styled.div`
 export const Total = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 30px;
   padding-top: 20px;
   font-size: 25px;
   line-height: 30px;
@@ -72,6 +74,8 @@ export const Total = styled.div`
 export const Buttons = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 30px;
+
   button {
     box-sizing: border-box;
     padding: 14px 28px;
@@ -87,6 +91,11 @@ export const Buttons = styled.div`
     text-transform: uppercase;
     text-decoration: none;
     transition: 0.5s ease all;
+
+    &:hover {
+      background: #ffffff;
+      color: #0c0c0c;
+    }
   }
   a {
     box-sizing: border-box;

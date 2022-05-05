@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { localStorageCart } from "../../redux/actions";
 
-const Combo = ({ data, addToCart, deleteFromCart, clearCart }) => {
+const Combo = ({ data, addToCart, deleteFromCart }) => {
   let { id, title, unit_price, image } = data;
   const [quantity, setQuantity] = useState(0);
-
+  const dispatch = useDispatch();
+  let cart = useSelector((state) => state.cart);
+  useEffect(() => {
+    let cartlocalStor = JSON.parse(localStorage.getItem("cart"));
+    if (cartlocalStor !== null || cartlocalStor?.length > 0) {
+      dispatch(localStorageCart(cartlocalStor));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
   return (
     <Container>
       <InfoCombo>
@@ -25,8 +37,7 @@ const Combo = ({ data, addToCart, deleteFromCart, clearCart }) => {
         <button
           onClick={() => {
             data.quantity = setQuantity(quantity + 1);
-
-            addToCart(id);
+            return addToCart(id);
           }}
         >
           +
@@ -63,6 +74,7 @@ export const InfoCombo = styled.div`
     display: block;
     margin: 0 auto;
     margin-bottom: 45px;
+    width: -webkit-fill-available;
   }
 `;
 

@@ -210,7 +210,7 @@ const User = () => {
             <div
               className={s.infoContainer}
               class="animate__animated animate__backInLeft"
-              style={{ height: "100%", width: "85%", marginLeft: "8%" }}
+              style={{ height: "90%", width: "85%", marginLeft: "8%" }}
             >
               <div className={s.InfoName}>
                 <h2

@@ -145,8 +145,8 @@ const Login = () => {
                             </div>
                         </form>
                         <div className={s.styledbutton}>
-        <GoogleLoginButton text="Log in with Google" style={{ width: "200px", borderRadius: "10px" }} align={"center"} onClick={signInWithGoogle}></GoogleLoginButton>
-        <FacebookLoginButton text="Log in with Facebook" style={{ width: "200px", borderRadius: "10px" }} align={"center"} onClick={signInWithFacebook}></FacebookLoginButton>
+        <GoogleLoginButton className={s.loginButtons} text="Log in with Google" style={{ width: "200px", borderRadius: "10px", fontSize:"13px" }} align={"center"} onClick={signInWithGoogle}></GoogleLoginButton>
+        <FacebookLoginButton className={s.loginButtons} text="Log in with Facebook" style={{ width: "200px", borderRadius: "10px",fontSize:"13px" }} align={"center"} onClick={signInWithFacebook}></FacebookLoginButton>
                         </div>
                     </div>
         </div>

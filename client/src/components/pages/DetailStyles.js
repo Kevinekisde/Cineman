@@ -25,7 +25,7 @@ export const DetailContent = styled.div`
 `;
 
 export const MovieBox = styled.div`
---animate-duration: 0.8s;
+  --animate-duration: 0.8s;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,14 +40,14 @@ export const MovieBox = styled.div`
     width: fit-content;
     border-radius: 10px;
     animation: ilustrationAnimate ease-in 1s infinite alternate;
-    
   }
 
-  @keyframes ilustrationAnimate{
-    0%{
-        transform: scale(1);
-    }100%{
-        transform: scale(1.04);
+  @keyframes ilustrationAnimate {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.04);
     }
   }
 `;
@@ -72,20 +72,20 @@ export const MovieInfo = styled.div`
     line-height: 24px;
   }
 
-  #category{
+  #category {
     display: flex;
-    gap:8px;
-    margin-bottom:10px;
+    gap: 8px;
+    margin-bottom: 10px;
   }
 
-  h3{
+  h3 {
     display: flex;
     justify-content: center;
-    align-items:center;
-    width:100px;
-    height:40px;
+    align-items: center;
+    width: 100px;
+    height: 40px;
     text-align: center;
-    border-radius:10px;
+    border-radius: 10px;
   }
 `;
 
@@ -106,7 +106,7 @@ export const Button = styled.button`
     margin-right: 40px;
   }
 
-  a{
+  a {
     text-decoration: none;
     color: white;
   }

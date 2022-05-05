@@ -1,0 +1,41 @@
+.room {
+  display: grid;
+  grid-template-columns: repeat(24, 25px);
+}
+.seat {
+  width: 20px;
+}
+
+.noseat {
+  width: 20px;
+  visibility: hidden;
+}
+.borrar {
+  display: grid;
+}
+.input {
+  width: fit-content;
+  padding: 5px;
+}
+.input::placeholder {
+  color: black;
+}
+.button {
+  width: fit-content;
+  background-color: greenyellow;
+  padding: 5px;
+  height: 25px;
+  border: none;
+  cursor: pointer;
+  margin-top: 5px;
+}
+.nobutton {
+  width: fit-content;
+  padding: 5px;
+  height: 25px;
+  background-color: gray;
+  margin-top: 5px;
+  transition: 0.5s ease all;
+  border: none;
+  cursor: default;
+}

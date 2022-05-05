@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../sections/Footer";
 import Header from "../sections/Header";
 import ShoppingPoster from "../organisms/ShoppingPoster";
@@ -17,12 +17,19 @@ import {
 import { NavComponent } from "../sections/NavComponentStyles";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setPurchaseTickets } from "../../redux/actions";
+import {
+  discountAction,
+  getDetail,
+  getRoom,
+  localStorageFunction,
+  setPurchaseTickets,
+} from "../../redux/actions";
 
 const SelectTickets = () => {
   const entradas = useSelector((state) => state.entradas);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const selectedTickets = useSelector((state) => state.selectedTickets);
 
   const [tickets, setTickets] = useState([
     {
@@ -58,7 +65,6 @@ const SelectTickets = () => {
       setTotal(total + find.unit_price);
       find.quantity++;
       dispatch(setPurchaseTickets(tickets));
-    
     }
     if (operation === "rest") {
       if (find.quantity !== 0) {
@@ -70,18 +76,35 @@ const SelectTickets = () => {
     setTickets([...newTickets, find]);
   };
 
-
   const handleTickets = async () => {
-    if (total === 0) {
+    if (tickets.map((el) => el.quantity).reduce((a, b) => a + b, 0) === 0) {
       window.alert("Debe comprar al menos un ticket.");
-    }else{
-
-      localStorage.setItem("tickets", JSON.stringify(tickets));
-      localStorage.setItem("ticketstotal", total.toString());
+    } else {
+      localStorage.setItem("ticketing", JSON.stringify(tickets));
+      localStorage.setItem("ticketstotal", JSON.stringify(selectedTickets));
       dispatch(setPurchaseTickets(tickets));
       navigate(`/selectseat`);
     }
   };
+  useEffect(() => {
+    let localStor = JSON.parse(localStorage.getItem("ticketing"));
+
+    if (localStor !== null) {
+      setTickets(localStor);
+      dispatch(setPurchaseTickets(localStor));
+    }
+  }, []);
+  // const [discount, setDiscount] = useState("");
+  // const discountHandler = () => {
+  //   if (discount == "YBATDJc9re" || discount == "q1nClzYX2w") {
+  //     dispatch(discountAction(true));
+  //     setDiscount("");
+  //   }
+  //   if (!discount) {
+  //     dispatch(discountAction(false));
+  //     setDiscount("");
+  //   }
+  // };
 
   return (
     <Container>
@@ -106,9 +129,21 @@ const SelectTickets = () => {
             <Tickets>
               <TicketBox>
                 <div>
-                  <button onClick={() => handleChange(8, "rest")}>-</button>
-                  <p>{tickets.find((el) => el.id === 8).quantity}</p>
-                  <button onClick={() => handleChange(8, "sum")}>+</button>
+                  <button
+                    onClick={(e) => {
+                      handleChange(8, "rest");
+                    }}
+                  >
+                    -
+                  </button>
+                  <p>{tickets?.find((el) => el.id === 8).quantity}</p>
+                  <button
+                    onClick={(e) => {
+                      handleChange(8, "sum");
+                    }}
+                  >
+                    +
+                  </button>
                 </div>
                 <span>$400</span>
                 <p>- Ticket para niños</p>
@@ -116,7 +151,7 @@ const SelectTickets = () => {
               <TicketBox>
                 <div>
                   <button onClick={() => handleChange(7, "rest")}>-</button>
-                  <p>{tickets.find((el) => el.id === 7).quantity}</p>
+                  <p>{tickets?.find((el) => el.id === 7).quantity}</p>
                   <button onClick={() => handleChange(7, "sum")}>+</button>
                 </div>
                 <span>$800</span>
@@ -125,7 +160,7 @@ const SelectTickets = () => {
               <TicketBox>
                 <div>
                   <button onClick={() => handleChange(9, "rest")}>-</button>
-                  <p>{tickets.find((el) => el.id === 9).quantity}</p>
+                  <p>{tickets?.find((el) => el.id === 9)?.quantity}</p>
                   <button onClick={() => handleChange(9, "sum")}>+</button>
                 </div>
                 <span>$400</span>
@@ -134,15 +169,19 @@ const SelectTickets = () => {
                 </p>
               </TicketBox>
             </Tickets>
-            <Discount>
+            {/* <Discount>
               <Coupon>
                 <h3>discount coupon</h3>
-                <input type="text" placeholder="enter your coupon code here" />
+                <input
+                  type="text"
+                  placeholder="enter your coupon code here"
+                  value={discount}
+                />
               </Coupon>
               <ApplyButton>
-                <button>Apply</button>
+                <button onclick={discountHandler}>Apply</button>
               </ApplyButton>
-            </Discount>
+            </Discount> */}
           </SelectTicket>
           <div>
             <ShoppingPoster />

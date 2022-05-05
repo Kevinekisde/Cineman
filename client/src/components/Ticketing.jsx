@@ -71,12 +71,13 @@ export default function Ticketing() {
   //   }
   // }, [dispatchregular, dispatchchildren, dispatchelder]);
 
-  // useEffect(() => {
-  //   let backupCart = localStorage.getItem("ticketing");
-  //   if (backupCart !== null && backupCart !== 0) {
-  //     dispatch(localStorageCart(JSON.parse(backupCart)));
-  //   }
-  // }, []);
+  useEffect(() => {
+    let backupCart = JSON.parse(localStorage.getItem("ticketing"));
+    if (backupCart !== null && backupCart !== 0) {
+      dispatch(localStorageCart(backupCart));
+    }
+  }, []);
+
   let total =
     dispatchregular.unit_price * regulartickets +
     dispatchelder.unit_price * eldertickets +

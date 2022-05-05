@@ -19,6 +19,30 @@ export function validate(input) {
     )
   ) {
     errors.image = "Image Url is invalid";
+  } else if (!input[0].poster) {
+    errors.poster = "Poster Url is required";
+  } else if (
+    !/[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)?/gi.test(
+      input[0]?.poster
+    )
+  ) {
+    errors.poster = "Trailer Url is invalid";
+  } else if (!input[0].trailer) {
+    errors.trailer = "Trailer Url is required";
+  } else if (
+    !/[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)?/gi.test(
+      input[0]?.trailer
+    )
+  ) {
+    errors.trailer = "Official Site Url is invalid";
+  } else if (!input[0].officialSite) {
+    errors.officialSite = "Official Site Url is required";
+  } else if (
+    !/[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)?/gi.test(
+      input[0]?.officialSite
+    )
+  ) {
+    errors.officialSite = "Official Site Url is invalid";
   } else if (!input[0].date) {
     errors.date = "Release date is required";
   } else if (
@@ -48,13 +72,14 @@ export function validate(input) {
     errors.time = "Function time must be specified";
   } else if (!/^(2[0-3]|[0-1]?[\d]):[0-5][\d]$/.test(input[1]?.time)) {
     errors.time =
-      "Invalid format (it must match yyyy-mm-dd including middle dash '-'";
+      "Invalid format (it must be on 24h format hh:mm including ':' in middle ";
   } else if (!input[1].date) {
     errors.functionDate = "Function date must be specified";
   } else if (
     !/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(input[1]?.date)
   ) {
-    errors.functionDate = "Date is invalid";
+    errors.functionDate =
+      "Date is invalid(it must be yyy-mm-dd including the middle dash '-')";
   }
 
   return errors;

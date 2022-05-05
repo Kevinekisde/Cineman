@@ -33,6 +33,12 @@ import {
   FILL_LOCAL_TICKETS,
   GET_PRODUCT,
   FILLED_SEATS,
+  GET_ROOM,
+  GET_DETAIL,
+  DELETE_COMMENT,
+  LOCAL_STORAGE_FUNCTION,
+  CLEAR_FUNCTION_DETAIL,
+  DISCOUNT_FUNCTION,
 } from "./constants.js";
 
 export const initialState = {
@@ -72,6 +78,55 @@ export const initialState = {
       unit_price: 400,
     },
   ],
+  functionDetail: {},
+  PromosPremium: [
+    {
+      stock: 50,
+      _id: "6265bf45767fd0e7f0fdf8a9",
+      id: 5,
+      image:
+        "https://www.lays.com/sites/lays.com/files/2020-11/lays-Classic-small.jpg",
+      unit_price: 200,
+      title: "Papas Lays",
+    },
+    {
+      stock: 50,
+      _id: "6265bf45767fd0e7f0fdf8a9",
+      id: 3,
+      image:
+        "https://www.lays.com/sites/lays.com/files/2020-11/lays-Classic-small.jpg",
+      unit_price: 200,
+      title: "Papas Lays",
+    },
+    {
+      stock: 50,
+      _id: "6265bf3a767fd0e7f0fdf8a7",
+      id: 4,
+      image:
+        "https://t4.ftcdn.net/jpg/02/72/09/39/360_F_272093982_W3N1mvvVBTi9ri45jjKxUMER8X1IrVjD.jpg",
+      unit_price: 700,
+      title: "Combo 2",
+    },
+    {
+      stock: 50,
+      _id: "6265bf0f767fd0e7f0fdf8a1",
+      id: 1,
+      image:
+        "https://gestion.pe/resizer/JBgEm-SCdKGVQB9ViHxcvg8XgjY=/1200x800/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/H6KJXQXSCRGRLFHK6HLFEPG3YU.jpg",
+      unit_price: 550,
+      title: "Popcorn",
+    },
+    {
+      stock: 50,
+      _id: "6265bf1d767fd0e7f0fdf8a3",
+      id: 2,
+      image:
+        "https://d1tjllbjmslitt.cloudfront.net/spree/products/36375/large/8971600.jpg?1641477356",
+      unit_price: 130,
+      title: "Bebida",
+    },
+  ],
+  coupon: [],
 };
 
 export const reducer = (state = initialState, action) => {
@@ -137,7 +192,7 @@ export const reducer = (state = initialState, action) => {
         (product) => product.id === action.payload
       );
       let itemInCart = state.cart.find((item) => item.id === newItem.id);
-      // console.log(newItem);
+
       //si ya encuentra un item repetido en el carrito, lo devuelve pero con su prop cantidad+1, sino devuelve el otro con su prop cantidad en 1
 
       return itemInCart
@@ -216,6 +271,33 @@ export const reducer = (state = initialState, action) => {
         ...state,
         room: action.payload,
       };
+    //-----------------------------------------esto pal detalle del selectticket
+    case SET_FUNCTION:
+      let newFuncion = [...new Set(action.payload.occupied_seats)];
+
+      return {
+        ...state,
+        functionDetail: {
+          ...state.functionDetail,
+          funcion: { ...action.payload, occupied_seats: newFuncion },
+        },
+      };
+    case GET_ROOM:
+      return {
+        ...state,
+        functionDetail: { ...state.functionDetail, room: action.payload },
+      };
+    case GET_DETAIL:
+      return {
+        ...state,
+        functionDetail: { ...state.functionDetail, movie: action.payload[0] },
+      };
+    case "UNSET_FUNCTION":
+      return {
+        ...state,
+        functionDetail: {},
+      };
+    // -----------------------------------------------------------------------
     case FILLED_SEATS:
       return {
         ...state,
@@ -258,12 +340,6 @@ export const reducer = (state = initialState, action) => {
         functions: action.payload,
       };
 
-    case SET_FUNCTION:
-      return {
-        ...state,
-        functions: action.payload,
-      };
-
     case SET_SEATS:
       return {
         ...state,
@@ -287,6 +363,12 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
       };
+
+    case DELETE_COMMENT:
+      return {
+        ...state,
+      };
+
     case TICKET_HANDLER:
       return {
         ...state,
@@ -306,7 +388,21 @@ export const reducer = (state = initialState, action) => {
         ...state,
         functions: [action.payload],
       };
-
+    case LOCAL_STORAGE_FUNCTION:
+      return {
+        ...state,
+        functionDetail: action.payload,
+      };
+    case CLEAR_FUNCTION_DETAIL:
+      return {
+        ...state,
+        functionDetail: [],
+      };
+    case DISCOUNT_FUNCTION:
+      return {
+        ...state,
+        coupon: action.payload,
+      };
     default:
       return state;
   }

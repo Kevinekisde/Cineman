@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   checkOut,
-  ClearCart,
+  getDetail,
+  getRoom,
+  localStorageCart,
+  localStorageFunction,
   RemoveAllFromCart,
   RemoveOneFromCart,
   setPurchaseTickets,
@@ -18,12 +21,12 @@ import {
   TotalInfo,
 } from "./ShoppingTotalStyles";
 
-const ShoppingTotal = ({ handleTickets }) => {
+const ShoppingTotal = ({ handleTickets, output, idFunction }) => {
   // console.log(window.location.pathname);
-  const cart = useSelector((state) => state.cart);
+  let cart = useSelector((state) => state.cart);
+  let idMovie = useSelector((state) => state.functionDetail.movie);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   let tickets = useSelector((state) => state.selectedTickets);
 
   //-----------------CART----------------------
@@ -36,8 +39,41 @@ const ShoppingTotal = ({ handleTickets }) => {
       ? dispatch(RemoveAllFromCart(id, all))
       : dispatch(RemoveOneFromCart(id));
   };
+
+  const HandleReturns = () => {
+    window.location.pathname == "/selecttickets" &&
+      navigate("/detail/" + idMovie.id);
+    window.location.pathname == "/selectseat" && navigate("/selecttickets");
+    window.location.pathname == "/confectionery" &&
+      dispatch(checkOut([...cart, tickets])) &&
+      navigate(`/selectseat`);
+    window.location.pathname == "/confirmpurchase" &&
+      navigate("/confectionery");
+  };
+
   //---------------CART----------------
+  useEffect(() => {
+    let localStor = JSON.parse(localStorage.getItem("ticketstotal"));
+    // console.log(localStor);
+    if (localStor !== null || localStor?.length > 0) {
+      dispatch(setPurchaseTickets(localStor));
+    }
+  }, []);
+
+  useEffect(() => {
+    let cartlocalStor = JSON.parse(localStorage.getItem("cart"));
+    if (cartlocalStor !== null || cartlocalStor?.length > 0) {
+      dispatch(localStorageCart(cartlocalStor));
+    }
+  }, []);
+  // useEffect(() => {
+  //   localStorage.setItem("cart", JSON.stringify(cart)); //SI NO FUNCIONA EL LOCAL STORAGE DESCOMENTAR ESTO A VECES TROLEA SIN RAZON
+  // }, [cart]);
   //----------------------TICKETING--------------------
+  // useEffect(() => {
+  //   let localStor = localStorage.getItem("ticketstotal");
+  //   localStor != null && JSON.parse(localStor);
+  // }, []);
 
   //-----------------TICKETING-----------------------
   //-----------------SELECTSEATS----------------------
@@ -48,12 +84,12 @@ const ShoppingTotal = ({ handleTickets }) => {
     .reduce((a, b) => a + b, 0);
   const salaOcupada = useSelector((state) => state.filledSeats);
   const [compras, setCompras] = useState([]);
-  const [output, setOutput] = useState([]);
+  // const [output, setOutput] = useState([]);
   let t0 = ticketscomprados[0]?.quantity;
   let t1 = ticketscomprados[1]?.quantity;
   let t2 = ticketscomprados[2]?.quantity;
-  console.log(`ticketstotales: ${totaltickets}`);
-  console.log(`asientos: ${salaOcupada}`);
+  // console.log(`ticketstotales: ${totaltickets}`);
+  // console.log(`asientos: ${salaOcupada}`);
   useEffect(() => {
     if (totaltickets == salaOcupada) {
       setDisable(false);
@@ -63,8 +99,11 @@ const ShoppingTotal = ({ handleTickets }) => {
     }
     if (totaltickets < salaOcupada) setDisable(true);
   }, [salaOcupada, disable]);
+
   function comprar() {
-    //falta despachar esto
+    if (output == 0) {
+      return window.alert("Por favor selecciona tus asientos");
+    }
     for (let i = 0; i < output?.length; i++) {
       if (t0) {
         ticketscomprados[0].seats.push(output[i]);
@@ -77,18 +116,12 @@ const ShoppingTotal = ({ handleTickets }) => {
         t2--;
       }
     }
-    // dispatch(setSeats(idFunction, output));
-    dispatch(setPurchaseTickets(ticketscomprados)); //esto va a quedar hasta que se haga la compra
+    // dispatch(setSeats(idFunction, output));  //  <--- esto setea el asiento(s) en comprado en la db
+    // dispatch(setPurchaseTickets(ticketscomprados)); //esto va a quedar hasta que se haga la compra
+
+    localStorage.setItem("ticketsLcs", JSON.stringify(ticketscomprados));
     navigate("/confectionery");
-    // let nuevaSala = sala.map((seat) => {
-    //   if (seat.status === "") return { ...seat, status: "vendido" };
-    //   else return seat;
-    // });
 
-    // dispatch(putRoom(nuevaSala, idRoom))
-    // dispatch(setSalas(nuevaSala));
-
-    // dispatch(setSeats([salaId, nuevaSala]))  //esto actualiza los asientos ocupados en la funcion en db
     setCompras([]);
   }
 
@@ -129,42 +162,20 @@ const ShoppingTotal = ({ handleTickets }) => {
         </Total>
       </TotalInfo>
       <Buttons>
-        {
-          <a
-            href={
-              window.location.pathname == "/selecttickets"
-                ? "#"
-                : "/selecttickets"
-            }
-          >
-            return
-          </a>
-        }
+        <button onClick={() => HandleReturns()}>return</button>
         {window.location.pathname == "/selecttickets" ? (
-          <a href="#" onClick={() => handleTickets()}>
-            continue
-          </a>
+          <button onClick={() => handleTickets()}>continue</button>
         ) : window.location.pathname == "/selectseat" ? (
-          <button
-            href="#"
-            onClick={() => comprar()}
-            id="checkout"
-            disabled={disable}
-          >
+          <button onClick={() => comprar()} id="checkout" disabled={disable}>
             continue
           </button>
-        ) : window.location.pathname == "/cart" ? (
-          <a href="#" onClick={() => checkOutHandler()}>
-            continue
-          </a>
+        ) : window.location.pathname == "/confectionery" ? (
+          <button onClick={() => checkOutHandler()}>continue</button>
         ) : (
-          <a href="#" onClick={() => checkOutHandler()}>
-            continue
-          </a>
+          <button onClick={() => checkOutHandler()}>continue</button>
         )}
       </Buttons>
     </Container>
   );
 };
-
 export default ShoppingTotal;

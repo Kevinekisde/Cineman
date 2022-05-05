@@ -35,12 +35,18 @@ export const ErrorContent = styled.div`
   letter-spacing: 0.1em;
   color: #ffffff;
 
+  img {
+    padding-bottom: 20px;
+  }
+
   p,
   h3 {
+    padding-bottom: 30px;
     font-size: 25px;
   }
 
   h2 {
+    padding-bottom: 30px;
     font-weight: 700;
     font-size: 45px;
     line-height: 54px;

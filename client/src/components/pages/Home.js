@@ -77,6 +77,14 @@ const Home = () => {
     billBoard.scrollLeft += 50;
   };
 
+  useEffect(() => {
+    localStorage.removeItem("ticketing");
+    localStorage.removeItem("cart");
+    localStorage.removeItem("room");
+    localStorage.removeItem("ticketstotal");
+    localStorage.removeItem("count");
+  }, []);
+
   return (
     <>
       {allMovies[0]?.name ? (
@@ -110,8 +118,8 @@ const Home = () => {
                   (movie, i) =>
                     !movie.comingsoon && (
                       <Movie
-                        key={movie.id}
-                        id={movie.id}
+                        key={movie.id ? movie.id : movie._id}
+                        id={movie.id ? movie.id : movie._id}
                         name={movie.name}
                         background={i === 0 ? movie.image : movie.poster}
                         backgroundPoster={movie.image}
@@ -158,8 +166,8 @@ const Home = () => {
                   (movie, i) =>
                     movie.comingsoon && (
                       <Movie
-                        key={movie.id}
-                        id={movie.id}
+                        key={movie.id ? movie.id : movie._id}
+                        id={movie.id ? movie.id : movie._id}
                         name={movie.name}
                         background={i === 0 ? movie.image : movie.poster}
                         backgroundPoster={movie.image}

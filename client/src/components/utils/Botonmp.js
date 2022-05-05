@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-export default function Botonmp({ orderData }) {
+export default function Botonmp({ orderData, funcion }) {
   const user = useSelector((state) => state.userInfo);
 
   const mercadopago = useMercadopago.v2(
@@ -33,13 +33,14 @@ export default function Botonmp({ orderData }) {
     }
 
     axios
-      .post(`https://cineman1.herokuapp.com/mercadopago/create_preference`, [
+      .post(`https://cinemanback.herokuapp.com/mercadopago/create_preference`, [
         orderData,
         user,
+        funcion,
       ])
       .then((r) => r.data)
       .then((preference) => createCheckoutButton(preference.id));
-  }, [mercadopago, orderData, user]);
+  }, [mercadopago, orderData, user, funcion]);
 
   return (
     <>

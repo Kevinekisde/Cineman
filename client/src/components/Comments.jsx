@@ -1,43 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getMoviesById, postComment } from "../redux/actions";
-// import s from "../components/Styles/Comments.module.css";
+import { postComment, deleteComment } from "../redux/actions";
+import s from "../components/Styles/Comments.module.css";
 import TimeAgo from "javascript-time-ago";
 import es from "javascript-time-ago/locale/es.json";
 import ReactTimeAgo from "react-time-ago";
+import Swal from "sweetalert2";
 
 const Comments = () => {
   const { login, userInfo, movieDetail } = useSelector((state) => state);
-  //   const user = useSelector((state) => state.userInfo);
+
   const [comment, setComment] = useState("");
   const dispatch = useDispatch();
-  TimeAgo.addDefaultLocale(es);
-  TimeAgo.addDefaultLocale({
-    locale: "es",
-    now: {
-      now: {
-        current: "ahora",
-        future: "en un momento",
-        past: "ahora mismo",
-      },
-    },
-    long: {
-      year: {
-        past: {
-          one: "{0} year ago",
-          other: "{0} years ago",
-        },
-        future: {
-          one: "in {0} year",
-          other: "in {0} years",
-        },
-      },
-    },
-  });
-  //pido una pelicula por su nombre para probar el componente (Harcodeo Style)
-  // useEffect(() => {
-  //   dispatch(getMoviesById(1));
-  // }, [dispatch]);
+  // TimeAgo.addDefaultLocale(es);
+  TimeAgo.addLocale(es);
+  // TimeAgo.addDefaultLocale({
+  //   locale: "es",
+  //   now: {
+  //     now: {
+  //       current: "ahora",
+  //       future: "en un momento",
+  //       past: "ahora mismo",
+  //     },
+  //   },
+  //   long: {
+  //     year: {
+  //       past: {
+  //         one: "{0} year ago",
+  //         other: "{0} years ago",
+  //       },
+  //       future: {
+  //         one: "in {0} year",
+  //         other: "in {0} years",
+  //       },
+  //     },
+  //   },
+  // });
 
   const [alreadyComment, setalreadyComment] = useState(false);
 
@@ -72,70 +70,67 @@ const Comments = () => {
       setalreadyComment(true);
     }
     dispatch(postComment(newComment));
+    setComment("");
+  };
+
+  const handleDeleteComments = (e) => {
+    e.preventDefault();
+    Swal.fire({
+      title: "El comentario se borrará!",
+      text: "Seguro que deseas continuar?",
+      icon: "question",
+      showCloseButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Confirm",
+      cancelButtonText: "Cancel",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          "El comentarioo ha sido borrado!",
+          "The comment has been deleted.",
+          "success"
+        );
+
+        let newComments = movieComments.filter(
+          (c) => c.user.uid !== e.target.value
+        );
+
+        console.log(newComments);
+        setmovieComments(newComments);
+        let commentToDelete = { uid: e.target.value };
+        dispatch(deleteComment(movieDetail[0].id, commentToDelete));
+      } else {
+        return Swal.close();
+      }
+    });
   };
 
   return (
-    <div
-      style={
-        login || movieComments.length > 0
-          ? {
-              margin: "0",
-              padding: "0",
-              width: "100vw",
-              height: "15vh",
-              display: "flex",
-              flexDirection: "row-reverse",
-              backgroundColor: "rgba(0, 0, 0, 0.43)",
-              borderRadius: "20px",
-              justifyContent: "start",
-              alignItems: "center",
-              textAlign: "left",
-            }
-          : { display: "none" }
-      }
-    >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row-reverse",
-          marginLeft: "20px",
-          gap: "20px",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+    <div className={login || movieComments.length > 0 ? s.main : s.main_logout}>
+      <div className={s.comments_container}>
         {movieComments.map((c) => (
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-              backgroundColor: "rgba(0, 0, 0, 0.7)",
-              padding: "20px",
-              borderRadius: "20px",
-            }}
-          >
-            <img
-              src={c.user.photoURL}
-              alt=""
-              width="50px"
-              height="50px"
-              style={{ borderRadius: "100px" }}
-            />
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                // gap: "10px",
-              }}
-            >
-              <div style={{ color: "white" }}>Dijo {c.user.displayName}:</div>
-              <div style={{ color: "white", marginBottom: "30px" }}>
-                {c.comment}
+          <div key={c.user.displayName} className={s.comments}>
+            <img src={c.user.photoURL} alt="" className={s.user_img} />
+            <div className={s.comment_container}>
+              <div className={s.comment_user_name}>
+                Dijo {c.user.displayName}:
               </div>
-              <div style={{ color: "white" }}>
-                <ReactTimeAgo date={c.date} locale="es-AR" />
+              <div className={s.comment}>{c.comment}</div>
+              <div className={s.comment_date}>
+                <ReactTimeAgo date={Date.parse(c.date)} locale="es-AR" />
               </div>
             </div>
+            <button
+              value={c.user.uid}
+              className={
+                userInfo?.uid !== "iBTnFMon69gCYZkidwg0TFV58gy1"
+                  ? s.delete_comment
+                  : s.delete_comment_login
+              }
+              onClick={(e) => handleDeleteComments(e)}
+            >
+              x
+            </button>
           </div>
         ))}
       </div>
@@ -144,50 +139,20 @@ const Comments = () => {
         !movieComments.some(
           (c) => userInfo.displayName === c.user.displayName
         ) ? (
-          <form
-            style={{
-              marginLeft: "2vw",
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "20px",
-            }}
-          >
-            <img
-              src={userInfo.photoURL}
-              alt=""
-              width="50px"
-              style={{ borderRadius: "50px" }}
-            />
+          <form className={s.form}>
+            <img src={userInfo.photoURL} alt="" className={s.user_img} />
             <textarea
-              style={{
-                backgroundColor: "rgba(0, 0, 0, 0.7)",
-                borderRadius: "20px",
-                color: "white",
-                padding: "5px",
-                height: "80px",
-                resize: "none",
-              }}
+              className={s.form_textarea}
               placeholder="Dejanos tu opinion..."
               name=""
               id=""
+              minLength={4}
               cols="30"
               rows="50"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
             ></textarea>
-            <button
-              style={{
-                borderRadius: "9px",
-                padding: "10px",
-                backgroundColor: "rgba(0, 0, 0, 0.7)",
-                color: "white",
-                height: "35px",
-              }}
-            >
-              Submit
-            </button>
+            <button className={s.form_submit}>+</button>
           </form>
         ) : (
           <div style={{ color: "white" }}></div>
